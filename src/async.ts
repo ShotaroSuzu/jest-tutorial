@@ -3,7 +3,7 @@ export const getRamenAfterOneSecond = (order: string): Promise<string> => {
     setTimeout(() => {
       try {
         console.log('Getting order, creating ramen...');
-        resolve(createRamen(order, 1000));
+        resolve(createRamen(order, 100));
       } catch (e) {
         reject(e);
       }
