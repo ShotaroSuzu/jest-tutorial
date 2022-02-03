@@ -1,5 +1,7 @@
 import { myForEach, getUsers } from '@/mock';
-
+import axios from 'axios';
+import Users from '../src/users';
+import { mocked } from 'ts-jest/utils';
 describe('mock properties', () => {
   test('mock properties', () => {
     //モック関数の作成とモックを渡す
@@ -64,4 +66,12 @@ describe('mock of modules)', () => {
     const result = getUsers();
     await expect(result).resolves.toEqual(users);
   });
+});
+
+jest.mock('axios');
+test('should fetch users', () => {
+  const users = [{ name: 'bob' }];
+  const resp = { data: users };
+  mocked(axios, true).get.mockResolvedValue(resp);
+  return Users.all().then((data) => expect(data).toEqual(users));
 });
